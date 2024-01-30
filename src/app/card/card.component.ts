@@ -56,6 +56,7 @@ export class CardComponent {
     }
 
     private shuffleDeck() {
+        //Fisher-Yates shuffle algorithm. Most efficient and simple.
         for (let i = this.deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
