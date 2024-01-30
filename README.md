@@ -77,7 +77,7 @@ Call the run() method to start the card game, ensuring fair distribution among p
 
 Example Html:
 
-
+`
 <!-- app-card component usage in an Angular template -->
-<app-card></app-card>
+<app-card></app-card>`
 
