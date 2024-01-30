@@ -25,7 +25,7 @@ describe('CardComponent', () => {
     });
 
     it('should initialize the deck', () => {
-        //im accessing methods this way to get around private methods not being accessible.
+        //accessing methods this way to get around private methods not being accessible.
         component['initializeDeck'](); 
         expect(component.deck.length).toBeGreaterThan(0);
     });
@@ -51,12 +51,12 @@ describe('CardComponent', () => {
         component['initializeDeck']();
         component['distributeCards']();
 
-        // Check if each player has received some cards
+        //check if each player has received some cards
         expect(
             component.players.every((player) => player.cards.length > 0)
         ).toBe(true);
 
-        // Check if the total number of cards distributed equals the total in the deck
+        //check if the total number of cards distributed equals the total in the deck
         const totalDistributedCards = component.players.reduce(
             (total, player) => total + player.cards.length,
             0
@@ -69,22 +69,20 @@ describe('CardComponent', () => {
         component['initializeDeck']();
         component['distributeCards']();
 
-        // Check if each player has received some cards
+        //check if each player has received some cards
         expect(
             component.players.every((player) => player.cards.length > 0)
         ).toBe(true);
 
         component['collectCards']();
 
-        // Check if all players' card arrays are empty after collection
+        //check if all players' card arrays are empty after collection
         expect(
             component.players.every((player) => player.cards.length === 0)
         ).toBe(true);
     });
 
-    // Add more tests as needed for your specific component functionality
-
     afterEach(() => {
-        fixture.destroy(); // Clean up the fixture after each test
+        fixture.destroy(); //clean up the fixture after each test
     });
 });
