@@ -1,13 +1,34 @@
-<!-- card.component.html -->
+<div class="container">
+    <h1>Card Shuffler</h1>
 
-<div>
-    <label for="numberOfUsers">Number of Users:</label>
-    <input type="number" id="numberOfUsers" [(ngModel)]="numberOfUsers" />
-  </div>
-  
-  <div *ngIf="numberOfUsers">
-    <!-- Add your card display logic here based on the number of users -->
-    <p>Number of Users: {{ numberOfUsers }}</p>
-    <!-- Include your card display logic here -->
-  </div>
-  
+    <div class="controls-container">
+        <label for="numberOfPlayers">Input Number of Users:</label>
+        <input
+            type="number"
+            id="numberOfPlayers"
+            [(ngModel)]="numberOfPlayers"
+        />
+        <div class="buttons-container">
+            <button class="reset-button" (click)="collectCards()">RESET</button>
+            <button class="run-button" (click)="run()">RUN</button>
+        </div>
+
+        <div *ngIf="numberOfDecks > 1">
+            <i>
+              {{numberOfDecks - 1}} extra decks added (too many players).
+            </i>
+        </div>
+    </div>
+
+    <div *ngIf="players.length > 0" class="players-container">
+        <div *ngFor="let player of players">
+            <h3>{{ player.name }}'s cards:</h3>
+
+            <ul>
+                <li *ngFor="let card of player.cards">
+                    {{ card.rank }} of {{ card.suit }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
