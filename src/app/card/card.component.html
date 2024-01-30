@@ -1,0 +1,13 @@
+<!-- card.component.html -->
+
+<div>
+    <label for="numberOfUsers">Number of Users:</label>
+    <input type="number" id="numberOfUsers" [(ngModel)]="numberOfUsers" />
+  </div>
+  
+  <div *ngIf="numberOfUsers">
+    <!-- Add your card display logic here based on the number of users -->
+    <p>Number of Users: {{ numberOfUsers }}</p>
+    <!-- Include your card display logic here -->
+  </div>
+  
