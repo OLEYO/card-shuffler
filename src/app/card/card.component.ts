@@ -21,6 +21,7 @@ export class CardComponent {
 
     run() {
         this.numberOfDecks = 1;
+        this.initializeDeck();
 
         while (this.numberOfPlayers > this.deck.length) {
             //open another deck if we've reached max amount of players for the deck.
@@ -39,6 +40,7 @@ export class CardComponent {
     }
 
     private initializeDeck() {
+        this.deck = [];
         for (const suit of environment.suits) {
             for (const rank of environment.ranks) {
                 this.deck.push(new Card(suit, rank));
