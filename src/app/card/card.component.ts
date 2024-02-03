@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 import { Card } from '../../models/card.model';
 import { Player } from '../../models/player.model';
 import { environment } from '../../environments/environment';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
+    animations: [
+        trigger('stagger', [
+          transition('* => *', [
+            style({ opacity: 0, transform: 'translateY(10px)' }),
+            animate('300ms', style({ opacity: 1, transform: 'translateY(0)' })),
+          ]),
+        ]),
+      ],
 })
 export class CardComponent {
     numberOfPlayers: number = 1;

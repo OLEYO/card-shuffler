@@ -15,7 +15,7 @@
 
         <div *ngIf="numberOfDecks > 1">
             <i>
-              {{numberOfDecks - 1}} extra decks added (too many players).
+                {{ numberOfDecks - 1 }} extra decks added (too many players).
             </i>
         </div>
     </div>
@@ -24,11 +24,37 @@
         <div *ngFor="let player of players">
             <h3>{{ player.name }}'s cards:</h3>
 
-            <ul>
-                <li *ngFor="let card of player.cards">
-                    {{ card.rank }} of {{ card.suit }}
-                </li>
-            </ul>
+            <div class="cards-container">
+                <div *ngFor="let card of player.cards; let i = index" class="playing-card" [class.red-card]="card.suit == 'Hearts' || card.suit == 'Diamonds'" [@stagger]="i">
+                    <div class="top-left">
+                        {{
+                            card.suit == "Hearts"
+                                ? "&#9829;"
+                                : card.suit == "Diamonds"
+                                ? "&#9830;"
+                                : card.suit == "Clubs"
+                                ? "&#9827;"
+                                : "&#9824;"
+                        }}
+                    </div>
+
+                    <div class="center">
+                        <p>{{card.rank}}</p>
+                    </div>
+
+                    <div class="bottom-right">
+                        {{
+                            card.suit == "Hearts"
+                                ? "&#9829;"
+                                : card.suit == "Diamonds"
+                                ? "&#9830;"
+                                : card.suit == "Clubs"
+                                ? "&#9827;"
+                                : "&#9824;"
+                        }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
