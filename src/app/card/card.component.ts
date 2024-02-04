@@ -10,15 +10,19 @@ import { animate, style, transition, trigger } from '@angular/animations';
     styleUrls: ['./card.component.scss'],
     animations: [
         trigger('stagger', [
-          transition('* => *', [
-            style({ opacity: 0, transform: 'translateY(10px)' }),
-            animate('300ms', style({ opacity: 1, transform: 'translateY(0)' })),
-          ]),
+            transition('* => *', [
+                style({ opacity: 0, transform: 'translateY(10px)' }),
+                animate(
+                    '300ms',
+                    style({ opacity: 1, transform: 'translateY(0)' })
+                ),
+            ]),
         ]),
-      ],
+    ],
 })
 export class CardComponent {
     numberOfPlayers: number = 1;
+    numberOfCardsEach: number = 0;
     deck: Card[] = [];
     numberOfDecks: number = 1;
     players: Player[] = [];
@@ -32,9 +36,17 @@ export class CardComponent {
         this.numberOfDecks = 1;
         this.initializeDeck();
 
-        while (this.numberOfPlayers > this.deck.length) {
-            //open another deck if we've reached max amount of players for the deck.
-            this.deck = this.deck.concat(this.deck);
+        //saving variable locally so we dont add more than 1 deck per while loop
+        var deck = this.deck;
+
+        while (
+            this.numberOfPlayers > this.deck.length ||
+            this.numberOfCardsEach * this.numberOfPlayers > this.deck.length
+        ) {
+            //open another deck if we've reached max amount of players for the deck. open even more decks if per-player we need a set amount that we currently cant fulfill.
+            this.deck = this.deck.concat(deck);
+
+            //record how many decks are opened for front end display
             this.numberOfDecks += 1;
         }
 
@@ -79,17 +91,37 @@ export class CardComponent {
 
         let cardIndex = 0;
 
-        //this makes sure to evenly distribute the cards between the players so no player gets more than the other, where possible.
-        this.players.forEach((player) => {
-            player.cards.push(
-                ...this.deck.slice(
-                    cardIndex,
-                    cardIndex +
-                        Math.floor(this.deck.length / this.numberOfPlayers)
-                )
-            );
-            cardIndex += Math.floor(this.deck.length / this.numberOfPlayers);
-        });
+        if (this.numberOfCardsEach == 0) {
+            //this makes sure to evenly distribute the cards between the players so no player gets more than the other, where possible.
+            this.players.forEach((player) => {
+                player.cards.push(
+                    ...this.deck.slice(
+                        cardIndex,
+                        cardIndex +
+                            Math.floor(this.deck.length / this.numberOfPlayers)
+                    )
+                );
+                cardIndex += Math.floor(
+                    this.deck.length / this.numberOfPlayers
+                );
+            });
+            return;
+        } else {
+            // If a specific number of cards should be given to each player
+            this.players.forEach((player) => {
+                // Distribute a specific number of cards to each player
+                player.cards.push(
+                    ...this.deck.slice(
+                        cardIndex,
+                        cardIndex + this.numberOfCardsEach
+                    )
+                );
+                // Update the card index for the next player
+                cardIndex += this.numberOfCardsEach;
+            });
+        }
+
+        //give a certain amount of cards to each player
     }
 
     collectCards() {

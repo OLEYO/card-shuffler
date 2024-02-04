@@ -1,24 +1,51 @@
 <div class="container">
     <h1>Card Shuffler</h1>
 
-    <div class="controls-container">
-        <label for="numberOfPlayers">Input Number of Users:</label>
-        <input
-            type="number"
-            id="numberOfPlayers"
-            [(ngModel)]="numberOfPlayers"
-        />
-        <div class="buttons-container">
-            <button class="reset-button" (click)="collectCards()">RESET</button>
-            <button class="run-button" (click)="run()">RUN</button>
+    <div class="top-section">
+        <div class="controls-container">
+            <label for="numberOfPlayers">Input number of users</label>
+            <input
+                type="number"
+                id="numberOfPlayers"
+                [(ngModel)]="numberOfPlayers"
+            />
+            <div *ngIf="numberOfDecks > 1">
+                <i>
+                    {{ numberOfDecks - 1 }} extra decks added.
+                </i>
+            </div>
+
+
+            <label for="numberOfCardsEach">Input number of cards for each user</label>
+            <input
+                type="number"
+                id="numberOfCardsEach"
+                [(ngModel)]="numberOfCardsEach"
+            />
+            <i>
+                Chosing 0 will revert to default poker rules
+            </i>
+    
+    
         </div>
 
-        <div *ngIf="numberOfDecks > 1">
-            <i>
-                {{ numberOfDecks - 1 }} extra decks added (too many players).
-            </i>
+        <div class="info-container">
+            <p >
+                Welcome!
+                <br><br>
+                Automatically the system will follow rules of poker distribution. Override the number of cards for each player and the system will open packs till the required number is reached. 
+                
+            </p>
         </div>
+            
+        <div class="buttons-container">
+            <button class="reset-button" (click)="collectCards()">&#8635; RESET </button>
+            <button class="run-button" (click)="run()">&#9654; RUN </button>
+        </div>
+    
     </div>
+    
+    
 
     <div *ngIf="players.length > 0" class="players-container">
         <div *ngFor="let player of players">

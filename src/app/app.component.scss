@@ -1,5 +1,21 @@
+@font-face {
+    font-family: "NeueHaasDisplayMedium";
+    src: url("/assets/fonts/NeueHaasDisplayMediu.ttf") format("truetype") ;
+}
+
+@font-face {
+    font-family: "NeueHaasDisplayLight";
+    src: url("/assets/fonts/NeueHaasDisplayLight.ttf") format("truetype");
+}
+
+body {
+    font-family: "NeueHaasDisplay", sans-serif;
+}
+
 .container {
-    background-color: rgb(44, 46, 46);
+    background-color: rgb(16, 16, 16);
+
+    background: radial-gradient(circle, rgb(30, 30, 30), rgb(14, 14, 14));
 
     position: absolute;
     top: 0;
